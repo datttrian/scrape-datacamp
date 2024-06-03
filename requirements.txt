@@ -4,3 +4,6 @@ unstructured
 unstructured[pdf]
 langchain-cli
 pytest
+openai
+chromadb
+tiktoken
