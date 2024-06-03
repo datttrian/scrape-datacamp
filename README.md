@@ -38,7 +38,7 @@ Example Project Structures
 
 `project.py`
 
-``` highlight
+``` python
 def main():
     ...
 
@@ -61,7 +61,7 @@ if __name__ == "__main__":
 
 `test_project.py`
 
-``` highlight
+``` python
 def test_function_1():
     ...
 
