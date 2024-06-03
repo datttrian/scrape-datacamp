@@ -16,6 +16,7 @@
                 "ms-python.vscode-pylance",
                 "ms-python.mypy-type-checker",
                 "ms-python.black-formatter",
+                "qwtel.sqlite-viewer",
                 "streetsidesoftware.code-spell-checker",
                 "DavidAnson.vscode-markdownlint",
                 "EditorConfig.EditorConfig",
