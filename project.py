@@ -13,17 +13,24 @@ DATA_PATH = "data/books"
 
 
 def main():
-    documents = load_documents()
+    if len(sys.argv) != 3:
+        sys.exit("Usage: python project.py file.pdf query")
+
+    pdf_file = sys.argv[1]
+    documents = load_documents(pdf_file)
     chunks = split_text(documents)
     save_to_chroma(chunks)
 
+    query_text = sys.argv[2]
+    embedding_function = OpenAIEmbeddings()
+    db = Chroma(persist_directory=CHROMA_PATH, embedding_function=embedding_function)
+    results = db.similarity_search_with_relevance_scores(query_text, k=3)
 
-def load_documents():
-    if len(sys.argv) != 2:
-        sys.exit("Usage: python project.py file.pdf")
+    print(results)
 
-    pdf_file = sys.argv[1]
-    loader = DirectoryLoader(DATA_PATH, glob=pdf_file)
+
+def load_documents(file):
+    loader = DirectoryLoader(DATA_PATH, glob=file)
     documents = loader.load()
     return documents
 
