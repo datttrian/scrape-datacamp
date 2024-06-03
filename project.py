@@ -16,7 +16,7 @@ You are an intelligent assistant. You have been provided with the following cont
 
 {context}
 
-Based on this context, please provide a detailed and informative answer to the following question:
+Based on this context, please provide an answer to the following question:
 
 {question}
 """
