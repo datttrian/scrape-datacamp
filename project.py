@@ -7,9 +7,19 @@ from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain_community.document_loaders import DirectoryLoader
 from langchain_community.vectorstores import Chroma
 from langchain_openai import OpenAIEmbeddings
+from langchain.prompts import ChatPromptTemplate
 
 CHROMA_PATH = "chroma"
 DATA_PATH = "data/books"
+PROMPT_TEMPLATE = """
+You are an intelligent assistant. You have been provided with the following context extracted from a PDF document:
+
+{context}
+
+Based on this context, please provide a detailed and informative answer to the following question:
+
+Question: {question}
+"""
 
 
 def main():
@@ -29,6 +39,11 @@ def main():
         print("Unable to find matching results.")
         return
     print(results)
+
+    context_text = "\n\n---\n\n".join([doc.page_content for doc, _score in results])
+    prompt_template = ChatPromptTemplate.from_template(PROMPT_TEMPLATE)
+    prompt = prompt_template.format(context=context_text, question=query_text)
+    print(prompt)
 
 
 def load_documents(file):
