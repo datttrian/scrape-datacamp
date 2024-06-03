@@ -1,16 +1,21 @@
+import os
+import shutil
 import sys
 
 from langchain.schema import Document
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain_community.document_loaders import DirectoryLoader
+from langchain.vectorstores.chroma import Chroma
+from langchain.embeddings import OpenAIEmbeddings
 
+CHROMA_PATH = "chroma"
 DATA_PATH = "data/books"
 
 
 def main():
     documents = load_documents()
     chunks = split_text(documents)
-    print(chunks)
+    save_to_chroma(chunks)
 
 
 def load_documents():
@@ -38,6 +43,16 @@ def split_text(documents: list[Document]):
     print(document.metadata)
 
     return chunks
+
+
+def save_to_chroma(chunks: list[Document]):
+    if os.path.exists(CHROMA_PATH):
+        shutil.rmtree(CHROMA_PATH)
+
+    db = Chroma.from_documents(
+        chunks, OpenAIEmbeddings(), persist_directory=CHROMA_PATH
+    )
+    db.persist()
 
 
 if __name__ == "__main__":
