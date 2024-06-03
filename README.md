@@ -1,4 +1,4 @@
-# <a href="#final-project" data-id="">Final Project</a>
+# [Final Project](#final-project)
 
 Once you have solved each of the course’s problem sets, it’s time to
 implement your final project, a Python program of your very own! The
@@ -88,13 +88,13 @@ Students who have already completed CS50P, if found to be in violation,
 will have their CS50 Certificate (and edX Certificate, if applicable)
 revoked.
 
-## <a href="#when-to-do-it" data-id="">When to Do It</a>
+## [When to Do It](#when-to-do-it)
 
 By <a href="https://time.cs50.io/20241231T235900-0500"
 data-local="2024-12-31T23:59:00-05:00">Tuesday, December 31, 2024 at
 11:59 PM EST</a>.
 
-## <a href="#getting-started" data-id="">Getting Started</a>
+## [Getting Started](#getting-started)
 
 Creating an entire project may seem daunting. Here are some questions
 that you should think about as you start:
@@ -113,11 +113,11 @@ that you should think about as you start:
 
 Consider making goal milestones to keep you on track.
 
-## <a href="#how-to-submit" data-id="">How to Submit</a>
+## [How to Submit](#how-to-submit)
 
 **You must complete all three steps!**
 
-#### <a href="#step-1-of-3" data-id="">Step 1 of 3</a>
+#### [Step 1 of 3](#step-1-of-3)
 
 Create a short video (that’s no more than 3 minutes in length) in which
 you present your project to the world. Your video **must** begin with an
@@ -141,7 +141,7 @@ as “unlisted,” but don’t flag it as “private.”
 Submit [this
 form](https://forms.cs50.io/5e2dd8e8-3c8b-4eb2-b77d-085836253f26)!
 
-#### <a href="#step-2-of-3" data-id="">Step 2 of 3</a>
+#### [Step 2 of 3](#step-2-of-3)
 
 Create a `README.md` text file (named exactly that!) in your `~/project`
 folder that explains your project. This file should include your Project
@@ -202,7 +202,7 @@ dropping folders, ensuring that when uploading you are doing so to your
 `cs50/problems/2022/python/project` branch, otherwise the system will
 not be able to check it!
 
-#### <a href="#step-3-of-3" data-id="">Step 3 of 3</a>
+#### [Step 3 of 3](#step-3-of-3)
 
 That’s it! Your project should be graded within a few minutes. Be sure
 to visit your gradebook at [cs50.me/cs50p](https://cs50.me/cs50p) a few
