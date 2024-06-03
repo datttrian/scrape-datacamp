@@ -1,8 +1,8 @@
 import sys
-from langchain_community.document_loaders import DirectoryLoader
+
 from langchain.schema import Document
 from langchain.text_splitter import RecursiveCharacterTextSplitter
-
+from langchain_community.document_loaders import DirectoryLoader
 
 DATA_PATH = "data/books"
 
