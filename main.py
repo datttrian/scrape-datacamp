@@ -7,13 +7,13 @@ from langchain_core.prompts import ChatPromptTemplate
 CHROMA_PATH = "chroma"
 
 PROMPT_TEMPLATE = """
-You have been provided with the following context extracted from a PDF document:
+Answer the question based only on the following context:
 
 {context}
 
-Based on this context, please provide a simple answer to the following question:
+---
 
-{question}
+Answer the question based on the above context: {question}
 """
 
 
@@ -38,7 +38,7 @@ def main():
     print(prompt)
 
     model = ChatOpenAI()
-    response_text = model.predict(prompt)
+    response_text = model.invoke(prompt)
 
     sources = [doc.metadata.get("source", None) for doc, _score in results]
     formatted_response = f"Response: {response_text}\nSources: {sources}"
