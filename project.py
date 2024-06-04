@@ -5,19 +5,24 @@ from langchain_openai import OpenAIEmbeddings
 from langchain.vectorstores.chroma import Chroma
 import os
 import shutil
+import sys
 
 CHROMA_PATH = "chroma"
 DATA_PATH = "data/books"
 
 
 def main():
-    documents = load_documents()
+    if len(sys.argv) != 2:
+        sys.exit("Usage: python project.py file.pdf")
+
+    pdf_file = sys.argv[1]
+    documents = load_documents(pdf_file)
     chunks = split_text(documents)
     save_to_chroma(chunks)
 
 
-def load_documents():
-    loader = DirectoryLoader(DATA_PATH, glob="index.pdf")
+def load_documents(file):
+    loader = DirectoryLoader(DATA_PATH, glob=file)
     documents = loader.load()
     return documents
 
