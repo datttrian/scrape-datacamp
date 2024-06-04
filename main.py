@@ -1,4 +1,4 @@
-import sys
+import argparse
 from langchain.vectorstores.chroma import Chroma
 from langchain.embeddings import OpenAIEmbeddings
 from langchain.chat_models import ChatOpenAI
@@ -7,28 +7,27 @@ from langchain.prompts import ChatPromptTemplate
 CHROMA_PATH = "chroma"
 
 PROMPT_TEMPLATE = """
-Answer the question based only on the following context:
+You have been provided with the following context extracted from a PDF document:
 
 {context}
 
----
+Based on this context, please provide a simple answer to the following question:
 
-Answer the question based on the above context: {question}
+{question}
 """
 
 
 def main():
-    if len(sys.argv) != 2:
-        sys.exit("Usage: python project.py query")
-    query_text = sys.argv[2]
+    parser = argparse.ArgumentParser()
+    parser.add_argument("query_text", type=str, help="The query text.")
+    args = parser.parse_args()
+    query_text = args.query_text
 
-    # Prepare the DB.
     embedding_function = OpenAIEmbeddings()
     db = Chroma(persist_directory=CHROMA_PATH, embedding_function=embedding_function)
 
-    # Search the DB.
     results = db.similarity_search_with_relevance_scores(query_text, k=3)
-    print(results)
+    print(results[0][1])
     if len(results) == 0 or results[0][1] < 0.7:
         print("Please ask a question related to the PDF file!")
         return

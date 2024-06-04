@@ -1,14 +1,23 @@
-from langchain.document_loaders import DirectoryLoader
-from langchain.text_splitter import RecursiveCharacterTextSplitter
-from langchain.schema import Document
-from langchain_openai import OpenAIEmbeddings
-from langchain.vectorstores.chroma import Chroma
+from langchain_community.document_loaders import DirectoryLoader
 import os
 import shutil
 import sys
+from langchain_openai import OpenAIEmbeddings
+from langchain_community.vectorstores import Chroma
+from langchain_core.documents import Document
+from langchain_text_splitters import RecursiveCharacterTextSplitter
 
 CHROMA_PATH = "chroma"
 DATA_PATH = "data/books"
+PROMPT_TEMPLATE = """
+Answer the question based only on the following context:
+
+{context}
+
+---
+
+Answer the question based on the above context: {question}
+"""
 
 
 def main():
@@ -29,7 +38,7 @@ def load_documents(file):
 
 def split_text(documents: list[Document]):
     text_splitter = RecursiveCharacterTextSplitter(
-        chunk_size=300,
+        chunk_size=400,
         chunk_overlap=100,
         length_function=len,
         add_start_index=True,
