@@ -80,7 +80,7 @@ def save_to_chroma(chunks: list[Document]):
     if os.path.exists(CHROMA_PATH):
         shutil.rmtree(CHROMA_PATH)
 
-    Chroma.from_documents(chunks, OpenAIEmbeddings(), persist_directory=CHROMA_PATH)
+    Chroma.from_documents(chunks, OpenAIEmbeddings())
 
 
 if __name__ == "__main__":
