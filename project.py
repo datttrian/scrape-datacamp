@@ -1,7 +1,7 @@
 from langchain.document_loaders import DirectoryLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain.schema import Document
-from langchain.embeddings import OpenAIEmbeddings
+from langchain_openai import OpenAIEmbeddings
 from langchain.vectorstores.chroma import Chroma
 import os
 import shutil
@@ -11,17 +11,13 @@ DATA_PATH = "data/books"
 
 
 def main():
-    generate_data_store()
-
-
-def generate_data_store():
     documents = load_documents()
     chunks = split_text(documents)
     save_to_chroma(chunks)
 
 
 def load_documents():
-    loader = DirectoryLoader(DATA_PATH, glob="*.pdf")
+    loader = DirectoryLoader(DATA_PATH, glob="index.pdf")
     documents = loader.load()
     return documents
 
