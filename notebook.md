@@ -61,6 +61,13 @@ print(f"Comparing ({words[0]}, {words[1]}): {x}")
     Saved 111 chunks to chroma.
 
 ```python
+!python main.py  "Define computer science!"
+```
+
+    0.6411439879550251
+    Please ask a question related to the PDF file!
+
+```python
 !python main.py  "Why humans run the world?"
 ```
 
