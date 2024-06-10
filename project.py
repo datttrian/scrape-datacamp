@@ -10,17 +10,27 @@ openai.api_key = os.environ["OPENAI_API_KEY"]
 
 client = OpenAI()
 
-assistant = client.beta.assistants.create(
-    name="Math Tutor",
-    instructions="You are a personal math tutor. Write and run code to answer math questions.",
-    tools=[{"type": "code_interpreter"}],
-    model="gpt-4o",
+file = client.files.create(
+    file=open("revenue-forecast.csv", "rb"), purpose="assistants"
 )
 
-thread = client.beta.threads.create()
+assistant = client.beta.assistants.create(
+    name="Data visualizer",
+    description="You are great at creating beautiful data visualizations. You analyze data present in .csv files, understand trends, and come up with data visualizations relevant to those trends. You also share a brief text summary of the trends observed.",
+    model="gpt-4o",
+    tools=[{"type": "code_interpreter"}],
+    tool_resources={"code_interpreter": {"file_ids": [file.id]}},
+)
 
-message = client.beta.threads.messages.create(
-    thread_id=thread.id,
-    role="user",
-    content="I need to solve the equation `3x + 11 = 14`. Can you help me?",
+
+thread = client.beta.threads.create(
+    messages=[
+        {
+            "role": "user",
+            "content": "Create 3 data visualizations based on the trends in this file.",
+            "attachments": [
+                {"file_id": file.id, "tools": [{"type": "code_interpreter"}]}
+            ],
+        }
+    ]
 )
