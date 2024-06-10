@@ -13,7 +13,7 @@ openai.api_key = os.environ["OPENAI_API_KEY"]
 client = OpenAI()
 
 file = client.files.create(
-    file=open("parking_violation.csv", "rb"), purpose="assistants"
+    file=open("world_happiness.csv", "rb"), purpose="assistants"
 )
 
 assistant = client.beta.assistants.create(
