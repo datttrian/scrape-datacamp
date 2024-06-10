@@ -4,3 +4,4 @@ chroma
 __pycache__
 log.txt
 .pytest_cache
+.env
