@@ -41,7 +41,7 @@ print(f"👉 Run Created: {run.id}")
 
 while run.status != "completed":
     run = client.beta.threads.runs.retrieve(thread_id=thread.id, run_id=run.id)
-    print(f"🏃 Run Status: {run.status}")
+    print(f"🏃🏻 Run Status: {run.status}")
     time.sleep(1)
 else:
     print("🏁 Run Completed!")
