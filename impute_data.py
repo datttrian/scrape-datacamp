@@ -4,7 +4,6 @@ import time
 import openai
 from dotenv import load_dotenv
 from openai import OpenAI
-from PIL import Image
 
 load_dotenv()
 openai.api_key = os.environ["OPENAI_API_KEY"]
@@ -12,9 +11,7 @@ openai.api_key = os.environ["OPENAI_API_KEY"]
 
 client = OpenAI()
 
-file = client.files.create(
-    file=open("world_happiness.csv", "rb"), purpose="assistants"
-)
+file = client.files.create(file=open("world_happiness.csv", "rb"), purpose="assistants")
 
 assistant = client.beta.assistants.create(
     name="Data visualizer",
@@ -47,16 +44,16 @@ else:
     print("🏁 Run Completed!")
 
 message_response = client.beta.threads.messages.list(thread_id=thread.id)
+print(message_response)
+
+# image_data = client.files.content(
+#     message_response.data[0].content[0].image_file.file_id
+# )
+# image_data_bytes = image_data.read()
+
+# with open("my-image.png", "wb") as file:
+#     file.write(image_data_bytes)
 
 
-image_data = client.files.content(
-    message_response.data[0].content[0].image_file.file_id
-)
-image_data_bytes = image_data.read()
-
-with open("my-image.png", "wb") as file:
-    file.write(image_data_bytes)
-
-
-image = Image.open("my-image.png")
-image.show()
+# image = Image.open("my-image.png")
+# image.show()
