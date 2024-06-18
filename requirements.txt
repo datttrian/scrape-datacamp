@@ -1,4 +1,1 @@
-openai
-pillow
-python-dotenv
-langchain-community
+rpy2
