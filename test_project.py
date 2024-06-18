@@ -1,7 +1,11 @@
 import pytest
-from rpy2.robjects.packages import importr
-from project import scrape_exercise_url_to_html
 import rpy2.robjects as robjects
+from rpy2.robjects.packages import importr
+
+from project import scrape_exercise_url_to_html
+
+utils = importr("utils")
+utils.install_packages("rvest")
 
 importr("rvest")
 read_html = robjects.r("read_html")
