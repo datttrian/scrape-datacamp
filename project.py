@@ -1,4 +1,4 @@
-import rpy2.robjects as robjects
+from rpy2 import robjects
 from rpy2.robjects.packages import importr
 
 importr("rvest")
@@ -41,7 +41,7 @@ def scrape_exercise_url_to_html(exercise_url):
     return exercise_content
 
 
-course = "https://www.datacamp.com/courses/introduction-to-python"
+COURSE = "https://www.datacamp.com/courses/introduction-to-python"
 
-exercises = scrape_course_url_to_exercise_urls(course)
+exercises = scrape_course_url_to_exercise_urls(COURSE)
 print(scrape_exercise_url_to_html(exercises[2]))
