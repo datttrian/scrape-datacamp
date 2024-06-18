@@ -1,5 +1,4 @@
 import pytest
-from rpy2.robjects import StrVector
 from rpy2.robjects.packages import importr
 from project import scrape_exercise_url_to_html
 import rpy2.robjects as robjects
