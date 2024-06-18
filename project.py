@@ -1,6 +1,8 @@
 from rpy2 import robjects
 from rpy2.robjects.packages import importr
 
+utils = importr("utils")
+utils.install_packages("rvest")
 importr("rvest")
 read_html = robjects.r("read_html")
 html_nodes = robjects.r("html_nodes")
@@ -41,7 +43,57 @@ def scrape_exercise_url_to_html(exercise_url):
     return exercise_content
 
 
-COURSE = "https://www.datacamp.com/courses/introduction-to-python"
+def html_to_markdown(html):
+    from bs4 import BeautifulSoup
 
-exercises = scrape_course_url_to_exercise_urls(COURSE)
-print(scrape_exercise_url_to_html(exercises[2]))
+    # Parse the HTML content
+    soup = BeautifulSoup(html, "html.parser")
+
+    # Extract relevant parts and transform to markdown
+    markdown = []
+
+    # Extracting the heading
+    if soup.find(class_="css-fsa3o0"):
+        heading = soup.find(class_="css-fsa3o0").text.strip()
+        markdown.append(f"# {heading}")
+
+    # Extracting paragraphs and code snippets
+    for para in soup.find_all("p"):
+        text = para.text.strip()
+        for code in para.find_all("code"):
+            text = text.replace(code.text, f"`{code.text}`")
+        markdown.append(text)
+
+    # Extracting list items under the instructions section
+    instructions = soup.find_all("ul")
+    if instructions:
+        markdown.append("## Instructions")
+        for li in instructions[0].find_all("li"):
+            markdown.append(f"- {li.text.strip()}")
+
+    # Extracting list items under the answer section
+    answer = soup.find_all("strong", string="Answer")
+    if answer:
+        markdown.append("## Answer")
+        # Assuming the list items after the 'Answer' heading are relevant
+        for sibling in answer[0].next_siblings:
+            if sibling.name == "div":
+                for li in sibling.find_all("li"):
+                    markdown.append(f"- {li.text.strip()}")
+
+    return "\n\n".join(markdown)
+
+
+def main():
+
+    COURSE = "https://www.datacamp.com/courses/introduction-to-python"
+
+    exercises = scrape_course_url_to_exercise_urls(COURSE)
+    html_exercise = scrape_exercise_url_to_html(exercises[3])
+    print(html_exercise)
+    markdown_exercise = html_to_markdown(html_exercise)
+    print(markdown_exercise)
+
+
+if __name__ == "__main__":
+    main()
