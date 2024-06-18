@@ -9,9 +9,17 @@ as_character = robjects.r("as.character")
 paste0 = robjects.r("paste0")
 
 
-def scrape_chapter_url_to_html(exercise):
+def scrape_course_url_to_exercise_urls(course_url):
+    exercise_urls = html_attr(
+        html_nodes(read_html(course_url), xpath='//div[@class="css-1k6or5q"]//a'),
+        "href",
+    )
+    return exercise_urls
+
+
+def scrape_exercise_url_to_html(exercise_url):
     sections = html_nodes(
-        read_html(exercise), xpath='//div[@class="listview__content"]'
+        read_html(exercise_url), xpath='//div[@class="listview__content"]'
     )
     if len(sections) == 0:
         return None
@@ -26,16 +34,14 @@ def scrape_chapter_url_to_html(exercise):
 
     instructions_heading = "<strong>Instructions</strong>"
     solutions_heading = "<strong>Answer</strong>"
-    chapter_content = ", ".join(
+    exercise_content = ", ".join(
         list(paste0(section1, instructions_heading, section2, solutions_heading))
     )
 
-    return chapter_content
+    return exercise_content
 
 
-exercises = "https://campus.datacamp.com/courses/intro-to-python-for-data-science/chapter-1-python-basics?ex=3"
+course = "https://www.datacamp.com/courses/introduction-to-python"
 
-exercise = scrape_chapter_url_to_html(exercises)
-
-print(type(exercise))
-print(exercise)
+exercises = scrape_course_url_to_exercise_urls(course)
+print(scrape_exercise_url_to_html(exercises[2]))
