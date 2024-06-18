@@ -1,1 +1,6 @@
+isort
+jupyter
+jupytext
+nbconvert
+pylint-pytest
 rpy2
