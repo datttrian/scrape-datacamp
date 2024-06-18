@@ -2,10 +2,7 @@ from rpy2 import robjects
 from rpy2.robjects.packages import importr
 from bs4 import BeautifulSoup
 
-utils = importr("utils")
-utils.install_packages("tidyverse")
-utils.install_packages("httr")
-utils.install_packages("rvest")
+
 importr("rvest")
 read_html = robjects.r("read_html")
 html_nodes = robjects.r("html_nodes")
@@ -46,7 +43,7 @@ def scrape_exercise_url_to_html(exercise_url):
     return exercise_content
 
 
-def html_to_markdown(html):
+def convert_html_to_markdown(html):
 
     soup = BeautifulSoup(html, "html.parser")
 
@@ -84,7 +81,7 @@ def main():
     COURSE = "https://www.datacamp.com/courses/introduction-to-python"
     exercises = scrape_course_url_to_exercise_urls(COURSE)
     html_exercise = scrape_exercise_url_to_html(exercises[7])
-    markdown_exercise = html_to_markdown(html_exercise)
+    markdown_exercise = convert_html_to_markdown(html_exercise)
     print(markdown_exercise)
 
 
