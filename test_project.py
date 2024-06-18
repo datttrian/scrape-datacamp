@@ -2,7 +2,7 @@ import pytest
 import rpy2.robjects as robjects
 from rpy2.robjects.packages import importr
 
-from project import scrape_exercise_url_to_html, convert_html_to_markdown
+from project import convert_html_to_markdown, scrape_exercise_url_to_html
 
 # utils = importr("utils")
 # utils.install_packages("tidyverse")

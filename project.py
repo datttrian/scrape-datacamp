@@ -1,7 +1,6 @@
+from bs4 import BeautifulSoup
 from rpy2 import robjects
 from rpy2.robjects.packages import importr
-from bs4 import BeautifulSoup
-
 
 importr("rvest")
 read_html = robjects.r("read_html")
@@ -78,8 +77,8 @@ def convert_html_to_markdown(html):
 
 
 def main():
-    COURSE = "https://www.datacamp.com/courses/introduction-to-python"
-    exercises = scrape_course_url_to_exercise_urls(COURSE)
+    course_link = "https://www.datacamp.com/courses/introduction-to-python"
+    exercises = scrape_course_url_to_exercise_urls(course_link)
     html_exercise = scrape_exercise_url_to_html(exercises[7])
     markdown_exercise = convert_html_to_markdown(html_exercise)
     print(markdown_exercise)
